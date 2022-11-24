@@ -1,6 +1,6 @@
 # moviefy
 
-Personal movie website for movie sharing to all devices connected to my network
+Personal movie website for sharing movies with all devices on my network. It uses [Fastify](https://www.fastify.io/) web framework and runs via [Node.js](https://nodejs.org/en/) for the web server and [Nunjucks](https://mozilla.github.io/nunjucks/) for templating.
 
 ## Setup
 
@@ -25,6 +25,12 @@ git clone
 cd moviefy
 ```
 
+Install all required `npm` packages:
+
+```bash
+npm install
+```
+
 Change the this values in `server.js` file:
 
 ```js
@@ -38,3 +44,15 @@ To run the server:
 ```bash
 node server
 ```
+
+## Dependencies
+
+- @fastify/static >= 6.5.1
+- @fastify/view >= 7.2.0
+- fastify >= 4.10.2
+- fastify-qs >= 4.0.1
+- nunjucks >= 3.2.3
+
+## Regrets
+
+I should have used PHP for this instead of Nodejs, the development would have been easier.
