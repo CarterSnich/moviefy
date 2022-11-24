@@ -4,14 +4,36 @@ Personal movie website for sharing movies with all devices on my network. It use
 
 ## Setup
 
-Make sure your movies are all stored in a folder. Your movies can be on the **root directory** or **inside another folder**, otherwise, it will not be found.
+Make sure your movies are all stored in a folder. Your movies can be on the **root directory** or **inside another folder one level deep**, otherwise, it will not be found.
 
 ```
-📂 root-of-movies
+📂 movies
 └── 🎞️ movie.mp4
 └── 📂 Another the Movie
     └── 🎞️ another-movie.mp4
 ```
+
+Then, create a symlink or shortcut of your movies folder inside `public` folder.
+
+\*nix:
+
+```sh
+ln -s 'absolute-path-to-your-movies' 'movies'
+```
+
+Windows:
+
+```batch
+# use bash
+```
+
+It should look like this:
+
+<pre>
+📂 moviefy
+└── 📂 public
+    └── 🔗 <i>movies</i>
+</pre>
 
 Softwares:
 
@@ -20,14 +42,14 @@ Softwares:
 
 Clone the project and `cd` into it:
 
-```bash
+```sh
 git clone
 cd moviefy
 ```
 
 Install all required `npm` packages:
 
-```bash
+```sh
 npm install
 ```
 
@@ -41,7 +63,7 @@ const MOVIES_PATH = "Movies"; // directory where your movies are located
 
 To run the server:
 
-```bash
+```sh
 node server
 ```
 
