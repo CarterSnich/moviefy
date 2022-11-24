@@ -15,8 +15,8 @@ Make sure your movies are all stored in a folder. Your movies can be on the **ro
 
 Softwares:
 
-- git (optional)
-- node
+- Git (optional)
+- Node.js
 
 Clone the project and `cd` into it:
 
@@ -31,7 +31,7 @@ Install all required `npm` packages:
 npm install
 ```
 
-Change the this values in `server.js` file:
+Change this values in `server.js` file:
 
 ```js
 const HOST = "192.168.1.1"; // IP of your server computer
