@@ -8,9 +8,9 @@ Make sure your movies are all stored in a folder. Your movies can be on the **ro
 
 ```
 📂 root-of-movies
-    └── 🎞️ movie.mp4
-    └── 📂 Another the Movie
-        └── 🎞️ another-movie.mp4
+└── 🎞️ movie.mp4
+└── 📂 Another the Movie
+    └── 🎞️ another-movie.mp4
 ```
 
 Softwares:
