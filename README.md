@@ -18,7 +18,7 @@ Then, create a symlink or shortcut of your movies folder inside `public` folder.
 \*nix:
 
 ```sh
-ln -s 'absolute-path-to-your-movies' 'movies'
+ln -s 'absolute-path-to-your-movies' 'public/movies'
 ```
 
 Windows:
