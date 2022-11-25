@@ -88,6 +88,10 @@ npm run watch
 
 - nodemon ^2.0.20
 
+## Issues
+
+- Downloading the video makes the browser very laggy
+
 ## Regrets
 
 I should have used PHP for this instead of Nodejs, the development would have been easier.
