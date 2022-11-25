@@ -92,6 +92,6 @@ npm run watch
 
 - Downloading the video makes the browser very laggy
 
-## Regrets
+## Plan for updates
 
-I should have used PHP for this instead of Nodejs, the development would have been easier.
+- Support loading of subtitles
