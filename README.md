@@ -38,7 +38,7 @@ It should look like this:
 Softwares:
 
 - Git (optional)
-- Node.js
+- Node.js >= 16.0.0 (do not use 17.0.0)
 
 Clone the project and `cd` into it:
 
@@ -56,24 +56,37 @@ npm install
 Change this values in `server.js` file:
 
 ```js
-const HOST = "192.168.1.1"; // IP of your server computer
+const HOST = ""; // leave it blank to use current IP address.
+// it will fallback to 127.0.0.1 if host computer is not connected to a network
 const PORT = 5555; // port number
-const MOVIES_PATH = "Movies"; // directory where your movies are located
 ```
 
 To run the server:
 
 ```sh
-node server
+npm run serve
+```
+
+Or, to watch file changes (using nodemon):
+
+```sh
+npm run watch
 ```
 
 ## Dependencies
 
-- @fastify/static >= 6.5.1
-- @fastify/view >= 7.2.0
-- fastify >= 4.10.2
-- fastify-qs >= 4.0.1
-- nunjucks >= 3.2.3
+### Runtime
+
+- @fastify/static ^6.5.1
+- @fastify/view ^7.2.0
+- fastify ^4.10.2
+- fastify-qs ^4.0.1
+- my-local-ip ^1.0.0
+- nunjucks ^3.2.3
+
+### Development
+
+- nodemon ^2.0.20
 
 ## Regrets
 
