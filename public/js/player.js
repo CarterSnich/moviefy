@@ -1,13 +1,4 @@
 
-
-document.getElementById("copy-stream-url").addEventListener("click", function () {
-    navigator.clipboard.writeText("{{ path }}");
-    this.innerText = "Copied!";
-    setTimeout(() => {
-        this.innerText = "Copy stream URL";
-    }, 3000);
-});
-
 let video = document.querySelector('#player-wrapper>video');
 let playerWrapper = document.getElementById('player-wrapper')
 let playPauseBtn = document.querySelector('.play-pause');
@@ -16,8 +7,10 @@ let durationTime = document.querySelector('.current-time')
 let volumeSlider = document.getElementById('volume-slider')
 let muteToggle = document.getElementById('mute-toggle')
 let fullscreenToggle = document.querySelector('.fullscreen-toggle')
-let downloadButton = document.querySelector('.download-video')
 let seekbar = document.querySelector('.seekbar')
+
+let downloadButton = document.getElementById('download-movie')
+let copyStreamUrlButton = document.getElementById('copy-stream-url')
 
 video.onloadedmetadata = function () {
     currentTime.innerText = secondsToHms(video.duration)
@@ -30,7 +23,6 @@ video.onloadedmetadata = function () {
             seekbar.value = video.currentTime
         }
     }, 0);
-
 }
 
 video.onplay = function () {
@@ -61,7 +53,7 @@ fullscreenToggle.addEventListener('click', function () {
     toggleFullscreen()
 })
 
-playerWrapper.addEventListener('dblclick', function () {
+playerWrapper.addEventListener('dblclick', function (e) {
     toggleFullscreen()
 })
 
@@ -77,6 +69,11 @@ muteToggle.addEventListener('click', function () {
     this.dataset.state = state ? "muted" : "unmuted"
 })
 
+seekbar.addEventListener('input', function () {
+    video.currentTime = this.value
+    durationTime.innerText = secondsToHms(video.currentTime)
+})
+
 downloadButton.addEventListener('click', function () {
     const a = document.createElement('a');
     a.href = video.src;
@@ -87,10 +84,27 @@ downloadButton.addEventListener('click', function () {
     document.body.removeChild(a);
 })
 
-seekbar.addEventListener('input', function () {
-    video.currentTime = this.value
-    durationTime.innerText = secondsToHms(video.currentTime)
-})
+
+copyStreamUrlButton.addEventListener("click", function () {
+    if (navigator.clipboard) {
+        navigator.clipboard.writeText(video.src);
+        console.log('copied url stream using ClipboardAPI')
+    } else {
+        const textArea = document.createElement("textarea");
+        textArea.value = video.src;
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+        try {
+            document.execCommand('copy');
+        } catch (err) {
+            console.error('Unable to copy to clipboard', err);
+            return
+        }
+        document.body.removeChild(textArea);
+        console.log('copied url stream using unsecured method')
+    }
+});
 
 
 function secondsToHms(d) {
@@ -135,3 +149,4 @@ function toggleFullscreen(params) {
         fullscreenToggle.dataset.state = "fullscreen"
     }
 }
+

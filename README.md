@@ -4,6 +4,8 @@
 
 Personal movie website for sharing movies with all devices on my network. It uses [Fastify](https://www.fastify.io/) web framework and runs via [Node.js](https://nodejs.org/en/) for the web server and [Nunjucks](https://mozilla.github.io/nunjucks/) for templating.
 
+It works offline, and movies can be downloaded or streamed on other media players like VLC or mpv.
+
 ## Setup
 
 Make sure your movies are all stored in a folder. Your movies can be on the **root directory** or **inside another folder one level deep**, otherwise, it will not be found.
