@@ -4,6 +4,7 @@
 	background-color: black;
 	position: relative;
 	row-gap: 0.5rem;
+	max-height: 100%;
 }
 #player-wrapper:hover .player-overlay {
 	visibility: visible !important;
@@ -13,10 +14,20 @@
 	position: absolute;
 	inset: 0;
 	box-shadow: inset 0px 0px 96px 8px black;
-	transition: all 0.5s ease-in-out;
 }
+
+.player-overlay {
+	transition: all 0.3s ease-in-out;
+}
+
 #player-wrapper.hide-controls .player-overlay {
 	visibility: hidden;
+}
+
+#player-wrapper video {
+	height: 100%;
+	position: absolute;
+	width: 100%;
 }
 
 .player-control {
@@ -36,7 +47,17 @@
 	gap: 1rem;
 }
 
-.player-control button {
+.playback-controls > *:not([class="time-display"]) {
+	border-radius: 1rem;
+	transition: background-color 0.3s ease-in-out;
+}
+
+.playback-controls > *:not([class="time-display"]):hover {
+	background-color: #ffffff50;
+}
+
+.playback-controls button,
+.volume-control span {
 	border: none;
 	background-color: transparent;
 	background-repeat: no-repeat;
@@ -45,11 +66,11 @@
 	width: 24px;
 }
 
-.player-control .play-pause {
+.playback-controls .play-pause {
 	background-image: url('data:image/svg+xml,%3Csvg xmlns="http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"%3E%3Cpath fill="white" d="M9.525 18.025q-.5.325-1.013.037Q8 17.775 8 17.175V6.825q0-.6.512-.888q.513-.287 1.013.038l8.15 5.175q.45.3.45.85t-.45.85Z"%2F%3E%3C%2Fsvg%3E');
 }
 
-.player-control .play-pause[data-state="playing"] {
+.playback-controls .play-pause[data-state="playing"] {
 	background-image: url('data:image/svg+xml,%3Csvg xmlns="http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"%3E%3Cpath fill="white" d="M15 19q-.825 0-1.412-.587Q13 17.825 13 17V7q0-.825.588-1.412Q14.175 5 15 5h2q.825 0 1.413.588Q19 6.175 19 7v10q0 .825-.587 1.413Q17.825 19 17 19Zm-8 0q-.825 0-1.412-.587Q5 17.825 5 17V7q0-.825.588-1.412Q6.175 5 7 5h2q.825 0 1.413.588Q11 6.175 11 7v10q0 .825-.587 1.413Q9.825 19 9 19Z"%2F%3E%3C%2Fsvg%3E');
 }
 
@@ -65,17 +86,47 @@
 	background-image: url('data:image/svg+xml,%3Csvg xmlns="http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"%3E%3Cpath fill="white" d="M9 19q-.425 0-.712-.288Q8 18.425 8 18v-2H6q-.425 0-.713-.288Q5 15.425 5 15t.287-.713Q5.575 14 6 14h3q.425 0 .713.287q.287.288.287.713v3q0 .425-.287.712Q9.425 19 9 19Zm-3-9q-.425 0-.713-.288Q5 9.425 5 9t.287-.713Q5.575 8 6 8h2V6q0-.425.288-.713Q8.575 5 9 5t.713.287Q10 5.575 10 6v3q0 .425-.287.712Q9.425 10 9 10Zm9 9q-.425 0-.712-.288Q14 18.425 14 18v-3q0-.425.288-.713Q14.575 14 15 14h3q.425 0 .712.287q.288.288.288.713t-.288.712Q18.425 16 18 16h-2v2q0 .425-.287.712Q15.425 19 15 19Zm0-9q-.425 0-.712-.288Q14 9.425 14 9V6q0-.425.288-.713Q14.575 5 15 5t.713.287Q16 5.575 16 6v2h2q.425 0 .712.287Q19 8.575 19 9t-.288.712Q18.425 10 18 10Z"%2F%3E%3C%2Fsvg%3E');
 }
 
+.playback-controls .volume-control {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	gap: 0.5rem;
+	padding-inline: 0.25rem;
+}
+
+.playback-controls .volume-control #volume-slider {
+	max-width: 96px;
+	height: 0.2rem;
+}
+.playback-controls .volume-control #mute-toggle {
+	background-image: url('data:image/svg+xml,%3Csvg xmlns="http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"%3E%3Cpath fill="white" d="M15.35 20.3q-.5.2-.925-.125q-.425-.325-.425-.9q0-.275.163-.487q.162-.213.412-.313q2-.8 3.213-2.55Q19 14.175 19 11.975t-1.212-3.95q-1.213-1.75-3.213-2.55q-.275-.1-.425-.325q-.15-.225-.15-.5q0-.55.425-.875q.425-.325.925-.125q2.55 1.025 4.1 3.275Q21 9.175 21 11.975t-1.55 5.05q-1.55 2.25-4.1 3.275ZM4 15q-.425 0-.712-.288Q3 14.425 3 14v-4q0-.425.288-.713Q3.575 9 4 9h3l3.3-3.3q.475-.475 1.087-.213q.613.263.613.938v11.15q0 .675-.613.937q-.612.263-1.087-.212L7 15Zm10 1V7.95q1.125.525 1.812 1.625q.688 1.1.688 2.425q0 1.325-.688 2.4Q15.125 15.475 14 16Z"%2F%3E%3C%2Fsvg%3E');
+}
+
+.playback-controls .volume-control #mute-toggle[data-state="muted"] {
+	background-image: url('data:image/svg+xml,%3Csvg xmlns="http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"%3E%3Cpath fill="white" d="m19.1 21.9l-2.325-2.325q-.35.2-.7.387q-.35.188-.725.338q-.5.2-.925-.125q-.425-.325-.425-.9q0-.275.163-.487q.162-.213.412-.313q.2-.075.388-.163q.187-.087.362-.187L12 14.8v2.775q0 .675-.613.937q-.612.263-1.087-.212L7 15H4q-.425 0-.712-.288Q3 14.425 3 14v-4q0-.425.288-.713Q3.575 9 4 9h2.2L2.1 4.9q-.275-.275-.275-.7q0-.425.275-.7q.275-.275.7-.275q.425 0 .7.275l17 17q.275.275.275.7q0 .425-.275.7q-.275.275-.7.275q-.425 0-.7-.275ZM15.35 3.65q2.55 1.025 4.1 3.275Q21 9.175 21 11.975q0 1.325-.362 2.55q-.363 1.225-1.038 2.275l-1.45-1.45q.425-.775.638-1.625q.212-.85.212-1.75q0-2.2-1.212-3.95q-1.213-1.75-3.213-2.55q-.275-.1-.425-.325q-.15-.225-.15-.5q0-.55.425-.875q.425-.325.925-.125Zm.9 9.8L14 11.2V7.95q1.175.55 1.838 1.65q.662 1.1.662 2.4q0 .375-.062.738q-.063.362-.188.712ZM12 9.2L9.4 6.6l.9-.9q.475-.475 1.087-.213q.613.263.613.938Z"%2F%3E%3C%2Fsvg%3E');
+}
+
 .playback-controls .download-video {
 	background-image: url('data:image/svg+xml,%3Csvg xmlns="http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"%3E%3Cpath fill="white" d="M12 15.575q-.2 0-.375-.063q-.175-.062-.325-.212l-3.6-3.6q-.275-.275-.275-.7q0-.425.275-.7q.275-.275.712-.288q.438-.012.713.263L11 12.15V5q0-.425.288-.713Q11.575 4 12 4t.713.287Q13 4.575 13 5v7.15l1.875-1.875q.275-.275.713-.263q.437.013.712.288q.275.275.275.7q0 .425-.275.7l-3.6 3.6q-.15.15-.325.212q-.175.063-.375.063ZM6 20q-.825 0-1.412-.587Q4 18.825 4 18v-2q0-.425.287-.713Q4.575 15 5 15t.713.287Q6 15.575 6 16v2h12v-2q0-.425.288-.713Q18.575 15 19 15t.712.287Q20 15.575 20 16v2q0 .825-.587 1.413Q18.825 20 18 20Z"%2F%3E%3C%2Fsvg%3E');
 }
 
 .seekbar {
-	margin-block: 0.5rem;
-	height: 0.5rem;
+	margin-block: 0.5rem 1rem;
+	height: 0.4rem;
 	width: 100%;
 	cursor: pointer;
 }
 
 .seekbar:active {
 	cursor: pointer;
+}
+
+@media screen and (orientation: portrait) {
+	#player-wrapper {
+		flex-grow: 0 !important;
+	}
+
+	#player-wrapper video {
+		position: static;
+	}
 }

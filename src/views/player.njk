@@ -1,45 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>{{ title }}</title>
-		<link rel="stylesheet" href="public/css/bootstrap.css" />
-		<link rel="stylesheet" href="public/css/player.css" />
-		<script src="public/js/player.js" defer></script>
-	</head>
-	<body class="p-3 bg-dark text-light vh-100">
-		<div class="d-flex flex-column gap-3 h-100">
-			<div id="player-wrapper" class="flex-grow-1">
-				<video class="w-100" src="{{ path }}" oncontextmenu="return false;"></video>
-				<div class="player-overlay">
-					<div class="player-control">
-						<div class="playback-controls">
-							<!-- play/pause button -->
-							<button class="play-pause" data-state="paused"></button>
-	
-							<!-- current time -->
-							<span class="time-display">
-								<span class="current-time">--:--</span> / <span class="duration-time">--:--</span>
-							</span>
-	
-							<!-- volume -->
-							<div class="volume-control"></div>
-	
-							<!-- fullscreen toggle -->
-							<button class="fullscreen-toggle" data-state="normal"></button>
-	
-							<!-- download button -->
-							<button class="download-video"></button>
-						</div>
-						<input type="range" class="seekbar" min="0" step="0.000001" value="0"></input>
-					</div>
-				</div>
-			</div>
-			<div class="flex-row">
-				<button id="copy-stream-url" class="btn btn-sm btn-primary">Copy stream URL</button>
-			</div>
-		</div>
-	</body>
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>{{ title }}</title>
+        <link rel="stylesheet" href="public/css/bootstrap.css" />
+        <link rel="stylesheet" href="public/css/player.css" />
+        <script src="public/js/player.js" defer></script>
+    </head>
+    <body class="p-3 bg-dark text-light vh-100">
+        <div class="d-flex flex-column gap-3 h-100">
+            <div id="player-wrapper" class="flex-grow-1">
+                <video src="{{ path }}" oncontextmenu="return false;">
+                </video>
+                <div class="player-overlay">
+                    <div class="player-control">
+                        <div class="playback-controls">
+                            <!-- play/pause button -->
+                            <button class="play-pause" data-state="paused"></button>
+                            <!-- current time -->
+                            <span class="time-display">
+                                <span class="current-time">--:--</span> / <span class="duration-time">--:--</span>
+                            </span>
+                            <!-- volume -->
+                            <div class="volume-control">
+                                <input type="range" id="volume-slider" min="0" max="1" step="0.01" value="1">
+                                <button id="mute-toggle" data-state="unmuted"></button>
+                            </div>
+                            <!-- fullscreen toggle -->
+                            <button class="fullscreen-toggle" data-state="normal"></button>
+                            <!-- download button -->
+                            <button class="download-video"></button>
+                        </div>
+                        <input type="range" class="seekbar" min="0" step="0.000001" value="0">
+                    </input>
+                </div>
+            </div>
+        </div>
+        <div class="flex-row">
+            <button id="copy-stream-url" class="btn btn-sm btn-primary">Copy stream URL</button>
+        </div>
+    </div>
+</body>
 </html>

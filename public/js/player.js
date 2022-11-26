@@ -13,6 +13,8 @@ let playerWrapper = document.getElementById('player-wrapper')
 let playPauseBtn = document.querySelector('.play-pause');
 let currentTime = document.querySelector('.duration-time')
 let durationTime = document.querySelector('.current-time')
+let volumeSlider = document.getElementById('volume-slider')
+let muteToggle = document.getElementById('mute-toggle')
 let fullscreenToggle = document.querySelector('.fullscreen-toggle')
 let downloadButton = document.querySelector('.download-video')
 let seekbar = document.querySelector('.seekbar')
@@ -42,6 +44,10 @@ video.onpause = function () {
     playerWrapper.classList.remove('hide-controls')
 }
 
+video.onvolumechange = function () {
+    volumeSlider.value = video.volume
+}
+
 playPauseBtn.playbackCallback = {
     playing: function () { video.pause() },
     paused: function () { video.play() }
@@ -57,6 +63,18 @@ fullscreenToggle.addEventListener('click', function () {
 
 playerWrapper.addEventListener('dblclick', function () {
     toggleFullscreen()
+})
+
+volumeSlider.addEventListener('input', function () {
+    video.muted = false
+    video.volume = this.value
+    muteToggle.dataset.state = "unmuted"
+})
+
+muteToggle.addEventListener('click', function () {
+    let state = !video.muted
+    video.muted = state
+    this.dataset.state = state ? "muted" : "unmuted"
 })
 
 downloadButton.addEventListener('click', function () {

@@ -39,13 +39,20 @@ fastify.get("/", (req, reply) => {
 
             files.forEach(file => {
                 try {
-                    let movie = {}
+                    let movie = {
+                        title: null,
+                        path: null,
+                        subtitle: null,
+                        type: null,
+                        supported: null
+                    }
                     let movieFile = file
 
                     movie.path = file
                     if (fs.lstatSync(`${MOVIES_PATH}/${file}`).isDirectory()) {
                         movieFile = fs.readdirSync(`${MOVIES_PATH}/${file}`).filter((elm) => elm.match(/.*\.(mp4|mkv|avi|mov|vob?)/ig))[0]
                         movie.path = `${file}/${movieFile}`
+                        movie.subtitle = fs.readdirSync(`${MOVIES_PATH}/${file}`).filter((elm) => elm.match(/.*\.(srt?)/ig))[0]
                     }
 
                     movie.title = movieFile.replace(/\.(mp4|mkv|mov|avi|vob)/i, '')

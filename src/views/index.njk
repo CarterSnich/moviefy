@@ -6,13 +6,15 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>moviefy</title>
 		<link rel="stylesheet" href="public/css/bootstrap.css" />
+		<link rel="stylesheet" href="public/css/index.css" />
 	</head>
 	<body class="p-3 bg-dark text-light">
 		<p>{{ movies.length }} movies/s</p>
-		<div class="list-group">
+		<div id="movie-list" class="list-group">
 			{% for movie in movies %}
-			<a href="/player?title={{ movie.title }}&path={{ movie.path }}&type={{ movie.type }}" class="list-group-item list-group-item-action {% if movie.supported == false %} list-group-item-warning {% endif %}">
+			<a href="/player?title={{ movie.title }}&path={{ movie.path }}&type={{ movie.type }}" class="d-flex flex-row gap-2 list-group-item list-group-item-action {% if movie.supported == false %} list-group-item-warning{% endif %}">
 				{{ movie.title }}
+				{% if not movie.supported %} <span class="not-playable" data-tooltip="Not fully supported"></span> {% endif %} {% if movie.subtitle %} <span class="supported-subtitle" data-tooltip="Subtitle available"></span> {% endif %}
 			</a>
 			{% endfor %}
 		</div>
