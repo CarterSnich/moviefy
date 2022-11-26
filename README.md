@@ -1,6 +1,6 @@
 # moviefy
 
-![player](_git/screenshot%201.png)
+![player](_git/preview.png)
 
 Personal movie website for sharing movies with all devices on my network. It uses [Fastify](https://www.fastify.io/) web framework and runs via [Node.js](https://nodejs.org/en/) for the web server and [Nunjucks](https://mozilla.github.io/nunjucks/) for templating.
 
@@ -80,10 +80,10 @@ npm run watch
 ## Screenshots
 
 Movie selection
-![player](_git/screenshot%202.png)
+![player](_git/movie-list.png)
 
 Player
-![player](_git/screenshot%201.png)
+![player](_git/player.png)
 
 ## Dependencies
 
