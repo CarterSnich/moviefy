@@ -17,7 +17,7 @@ Make sure your movies are all stored in a folder. Your movies can be on the **ro
 
 Then, create a symlink or shortcut of your movies folder inside `public` folder.
 
-\*nix:
+\*nix [(wth is this?!)](https://en.wikipedia.org/wiki/Unix-like#cite_ref-jargonfile_UNasteriskX_2-0):
 
 ```sh
 ln -s 'absolute-path-to-your-movies' 'public/movies'
